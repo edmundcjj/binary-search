@@ -1,4 +1,19 @@
-[{
+// Simple array to start off with
+const nameList = [
+  'Aaron',
+  'Andy',
+  'Batman',
+  'Betsy',
+  'Boba',
+  'Bonnie',
+  'Clarence',
+  'Daisy',
+  'Elektra',
+  'Flash'
+];
+
+// Simple json phonebook
+const phonebook = [{
     "id": 1,
     "name": "Doria",
     "phone": 78375575
@@ -4999,3 +5014,95 @@
     "phone": 38623063
   }
 ]
+
+// Default binary search algorithm for arrays
+function binarySearch(nameList, name) {
+  var min = 0;
+  var max = nameList.length - 1;
+
+  while (min <= max) {
+    // Continue halving the array based on the min and max variables set
+    index = Math.floor((min + max) / 2);
+
+    // Name exist and found match in array
+    if (nameList[index] === name) {
+      return true
+    }
+    // Continue searching for name in the array provided
+    else {
+      // Value of name not found in lower half of array, move over to upper half
+      if (nameList[index] < name) {
+        min = index + 1
+      }
+      // Value of name not found in upper half of array, move over to lower half
+      else {
+        max = index - 1
+      }
+    }
+  }
+  return "Not found"
+}
+
+// Binary Search algorithm for json objects
+function binarySearch_JSON(phonebook, value) {
+  var min = 0;
+  var max = phonebook.length - 1;
+
+  while (min <= max) {
+    // Continue halving the array based on the min and max variables set
+    index = Math.floor((min + max) / 2);
+
+    // Name exist and found match in array
+    if (phonebook[index].id === value) {
+      return true
+    }
+    // Continue searching for name in the array provided
+    else {
+      // Value of name not found in lower half of array, move over to upper half
+      if (phonebook[index].id < value) {
+        min = index + 1
+      }
+      // Value of name not found in upper half of array, move over to lower half
+      else {
+        max = index - 1
+      }
+    }
+  }
+  return "Not found"
+}
+
+// Binary Search algorithm for json objects by a given attribute
+function binarySearch_byattribute_JSON(sorted_phonebook, attribute, value) {
+  var min = 0;
+  var max = sorted_phonebook.length - 1;
+
+  while (min <= max) {
+    // Continue halving the array based on the min and max variables set
+    index = Math.floor((min + max) / 2);
+
+    // Name exist and found match in array
+    if (sorted_phonebook[index][attribute] === value) {
+      return true
+    }
+    // Continue searching for name in the array provided
+    else {
+      // Value of name not found in lower half of array, move over to upper half
+      if (sorted_phonebook[index][attribute] < value) {
+        min = index + 1
+      }
+      // Value of name not found in upper half of array, move over to lower half
+      else {
+        max = index - 1
+      }
+    }
+  }
+  return "Not found"
+}
+
+console.log("Result of finding Flash => " + binarySearch(nameList, 'Flash'));
+
+console.log("Result of finding id 44 in phonebook => " + binarySearch_JSON(phonebook, 44));
+
+console.log("Result of finding by phone in phone book of value 90953057 => " + binarySearch_byattribute_JSON(phonebook.sort(function(a, b) {
+  return a.phone - b.phone
+}), "phone", 90953057));
